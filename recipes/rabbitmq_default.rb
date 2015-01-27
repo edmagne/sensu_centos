@@ -28,11 +28,13 @@ execute "clone-repo-joemiller" do
 end
 
 execute "clean-ssl-certs" do
-  command "sh /root/joemiller.me-intro-to-sensu/ssl_certs.sh clean"
+  cwd "/root/joemiller.me-intro-to-sensu/"
+  command "sh ssl_certs.sh clean"
 end
 
 execute "generate-ssl-certs" do
-  command "sh /root/joemiller.me-intro-to-sensu/ssl_certs.sh generate"
+  cwd "/root/joemiller.me-intro-to-sensu/"
+  command "sh ssl_certs.sh generate"
 end
 
 directory '/etc/rabbitmq/ssl' do
