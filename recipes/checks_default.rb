@@ -7,22 +7,20 @@
 # All rights reserved - Do Not Redistribute
 #
 
-rpm_package "httpd" do
-  action :install
-end
+package "httpd"
 
 service "httpd" do
   action [ :enable, :start ]
 end
 
-template '/etc/sensu/plugins/check-apache.rb' do
+cookbook_file '/etc/sensu/plugins/check-apache.rb' do
   source 'check-apache.rb'
   owner "root"
   group "root"
   mode 00755
 end
 
-template '/etc/sensu/conf.d/check_apache.json' do
+cookbook_file '/etc/sensu/conf.d/check_apache.json' do
   source 'check_apache.json'
   owner "root"
   group "root"

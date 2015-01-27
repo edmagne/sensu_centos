@@ -11,17 +11,9 @@ execute "epel-update" do
   command "rpm -Uvh http://dl.fedoraproject.org/pub/epel/#{node['sensu_centos']['version_epel']}/#{node['sensu_centos']['arq_epel']}/#{node['sensu_centos']['release_epel']}"
 end
 
-rpm_package "git" do
-  action :install
-end
-
-rpm_package "erlang" do
-  action :install
-end
-
-rpm_package "logrotate" do
-  action :install
-end
+package "git"
+package "erlang"
+package "logrotate"
 
 execute "import-key-rabbitmq" do
   command "rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc"
@@ -36,11 +28,13 @@ execute "clone-repo-joemiller" do
 end
 
 execute "clean-ssl-certs" do
-  command "sh /root/joemiller.me-intro-to-sensu/ssl_certs.sh clean"
+  cwd "/root/joemiller.me-intro-to-sensu/"
+  command "sh ssl_certs.sh clean"
 end
 
 execute "generate-ssl-certs" do
-  command "sh /root/joemiller.me-intro-to-sensu/ssl_certs.sh generate"
+  cwd "/root/joemiller.me-intro-to-sensu/"
+  command "sh ssl_certs.sh generate"
 end
 
 directory '/etc/rabbitmq/ssl' do
@@ -62,7 +56,7 @@ execute "copy-cacert" do
   command "cp /root/joemiller.me-intro-to-sensu/testca/cacert.pem /etc/rabbitmq/ssl/"
 end
 
-template '/etc/rabbitmq/rabbitmq.config' do
+cookbook_file '/etc/rabbitmq/rabbitmq.config' do
   source 'rabbitmq.config'
   owner "root"
   group "root"
@@ -94,5 +88,5 @@ execute "rabbitmqctl-add-user" do
 end
 
 execute "rabbitmqctl-add-pass" do
-  command "rabbitmqctl set_permissions -p #{node['sensu_centos']['rabbitmqctl_vhost']} #{node['sensu_centos']['rabbitmqctl_user']} ".*" ".*" ".*""
+  command "rabbitmqctl set_permissions -p #{node['sensu_centos']['rabbitmqctl_vhost']} #{node['sensu_centos']['rabbitmqctl_user']} \".*\" \".*\" \".*\""
 end
