@@ -6,8 +6,8 @@
     },
     "host": "localhost",
     "port": 5671,
-    "vhost": "node['sensu_centos']['rabbitmqctl_vhost']",
-    "user": "node['sensu_centos']['rabbitmqctl_user']",
-    "password": "node['sensu_centos']['rabbitmqctl_pass']"
+    "vhost": <%= node['sensu_centos']['rabbitmqctl_vhost'] %>,
+    "user": <%= node['sensu_centos']['rabbitmqctl_user'] %>,
+    "password": <%= node['sensu_centos']['rabbitmqctl_pass'] %>
   }
 }

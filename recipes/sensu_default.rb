@@ -7,20 +7,15 @@
 # All rights reserved - Do Not Redistribute
 #
 
-template '/etc/yum.repos.d/sensu.repo' do
+cookbook_file '/etc/yum.repos.d/sensu.repo' do
   source 'sensu.repo'
   owner "root"
   group "root"
   mode 00644
 end
 
-rpm_package "sensu" do
-  action :install
-end
-
-rpm_package "uchiwa" do
-  action :install
-end
+package "sensu"
+package "uchiwa"
 
 service "sensu-server" do
   action [ :enable ]
@@ -54,20 +49,20 @@ execute "copy-client-cert" do
 end
 
 template '/etc/sensu/conf.d/rabbitmq.json' do
-  source 'rabbitmq.json'
+  source 'rabbitmq.json.erb'
   owner "root"
   group "root"
   mode 00755
 end
 
-template '/etc/sensu/conf.d/redis.json' do
+cookbook_file '/etc/sensu/conf.d/redis.json' do
   source 'redis.json'
   owner "root"
   group "root"
   mode 00755
 end
 
-template '/etc/sensu/conf.d/api.json' do
+cookbook_file '/etc/sensu/conf.d/api.json' do
   source 'api.json'
   owner "root"
   group "root"
@@ -78,14 +73,14 @@ cookbook_file "/etc/sensu/uchiwa.json" do
   action :delete
 end
 
-template '/etc/sensu/uchiwa.json' do
+cookbook_file '/etc/sensu/uchiwa.json' do
   source 'uchiwa.json'
   owner "root"
   group "root"
   mode 00755
 end
 
-template '/etc/sensu/conf.d/client.json' do
+cookbook_file '/etc/sensu/conf.d/client.json' do
   source 'client.json'
   owner "root"
   group "root"

@@ -54,8 +54,8 @@ execute "copy-cacert" do
   command "cp /root/joemiller.me-intro-to-sensu/testca/cacert.pem /etc/rabbitmq/ssl/"
 end
 
-template '/etc/rabbitmq/rabbitmq.config' do
-  source 'rabbitmq.config.erb'
+cookbook_file '/etc/rabbitmq/rabbitmq.config' do
+  source 'rabbitmq.config'
   owner "root"
   group "root"
   mode 00644

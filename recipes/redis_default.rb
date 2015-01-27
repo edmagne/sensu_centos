@@ -11,9 +11,7 @@ execute "epel-update" do
   command "rpm -Uvh http://dl.fedoraproject.org/pub/epel/#{node['sensu_centos']['version_epel']}/#{node['sensu_centos']['arq_epel']}/#{node['sensu_centos']['release_epel']}"
 end
 
-rpm_package "redis" do
-  action :install
-end
+package "redis"
 
 service "redis" do
   action [ :enable, :start ]
