@@ -55,7 +55,7 @@ execute "copy-cacert" do
 end
 
 template '/etc/rabbitmq/rabbitmq.config' do
-  source 'rabbitmq.config'
+  source 'rabbitmq.config.erb'
   owner "root"
   group "root"
   mode 00644
