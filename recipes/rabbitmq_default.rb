@@ -11,17 +11,9 @@ execute "epel-update" do
   command "rpm -Uvh http://dl.fedoraproject.org/pub/epel/#{node['sensu_centos']['version_epel']}/#{node['sensu_centos']['arq_epel']}/#{node['sensu_centos']['release_epel']}"
 end
 
-rpm_package "git" do
-  action :install
-end
-
-rpm_package "erlang" do
-  action :install
-end
-
-rpm_package "logrotate" do
-  action :install
-end
+package "git"
+package "erlang"
+package "logrotate"
 
 execute "import-key-rabbitmq" do
   command "rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc"
