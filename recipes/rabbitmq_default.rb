@@ -8,7 +8,7 @@
 #
 
 execute "epel-update" do
-  command "rpm -Uvh http://dl.fedoraproject.org/pub/epel/node['sensu_centos']['version_epel']/node['sensu_centos']['arq_epel']/node['sensu_centos']['release_epel']"
+  command "rpm -Uvh http://dl.fedoraproject.org/pub/epel/#{node['sensu_centos']['version_epel']}/#{node['sensu_centos']['arq_epel']}/#{node['sensu_centos']['release_epel']}"
 end
 
 rpm_package "git" do
@@ -28,7 +28,7 @@ execute "import-key-rabbitmq" do
 end
 
 execute "install-rabbitmq" do
-  command "rpm -Uvh http://www.rabbitmq.com/releases/rabbitmq-server/node['sensu_centos']['release_rabbitmq']/node['sensu_centos']['version_rabbitmq']"
+  command "rpm -Uvh http://www.rabbitmq.com/releases/rabbitmq-server/#{node['sensu_centos']['release_rabbitmq']}/#{node['sensu_centos']['version_rabbitmq']}"
 end
 
 execute "clone-repo-joemiller" do
@@ -86,13 +86,13 @@ execute "rabbitmq-plugins-enable" do
 end
 
 execute "rabbitmqctl-add-vhost" do
-  command "rabbitmqctl add_vhost node['sensu_centos']['rabbitmqctl_vhost']"
+  command "rabbitmqctl add_vhost #{node['sensu_centos']['rabbitmqctl_vhost']}"
 end
 
 execute "rabbitmqctl-add-user" do
-  command "rabbitmqctl add_user node['sensu_centos']['rabbitmqctl_user'] node['sensu_centos']['rabbitmqctl_pass']"
+  command "rabbitmqctl add_user #{node['sensu_centos']['rabbitmqctl_user']} #{node['sensu_centos']['rabbitmqctl_pass']}"
 end
 
 execute "rabbitmqctl-add-pass" do
-  command "rabbitmqctl set_permissions -p node['sensu_centos']['rabbitmqctl_vhost'] node['sensu_centos']['rabbitmqctl_user'] ".*" ".*" ".*""
+  command "rabbitmqctl set_permissions -p #{node['sensu_centos']['rabbitmqctl_vhost']} #{node['sensu_centos']['rabbitmqctl_user']} ".*" ".*" ".*""
 end

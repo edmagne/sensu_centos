@@ -12,7 +12,7 @@ execute "yum-update" do
 end
 
 execute "yum-install-devel-tools" do
-  command "yum -y groupinstall "Development Tools""
+  command "yum -y groupinstall \"Development Tools\""
 end
 
 rpm_package "tar" do
@@ -66,7 +66,7 @@ directory '/root/ruby-install/' do
   action :create
 end
 
-tar_extract 'http://ftp.ruby-lang.org/pub/ruby/1.9/node['sensu_centos']['version_ruby']' do
+tar_extract "http://ftp.ruby-lang.org/pub/ruby/1.9/#{node['sensu_centos']['version_ruby']}" do
   target_dir '/root/ruby-install/'
 end
 
@@ -84,7 +84,7 @@ directory '/root/rubygems-install/' do
   action :create
 end
 
-tar_extract 'http://production.cf.rubygems.org/rubygems/node['sensu_centos']['version_rubygems']' do
+tar_extract "http://production.cf.rubygems.org/rubygems/#{node['sensu_centos']['version_rubygems']}" do
   target_dir '/root/rubygems-install/'
 end
 
