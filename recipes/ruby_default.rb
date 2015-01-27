@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe "tar-cookbook"
+
 execute "yum-update" do
   command "yum update -y"
 end
