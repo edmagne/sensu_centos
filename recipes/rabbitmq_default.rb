@@ -94,5 +94,5 @@ execute "rabbitmqctl-add-user" do
 end
 
 execute "rabbitmqctl-add-pass" do
-  command "rabbitmqctl set_permissions -p #{node['sensu_centos']['rabbitmqctl_vhost']} #{node['sensu_centos']['rabbitmqctl_user']} ".*" ".*" ".*""
+  command "rabbitmqctl set_permissions -p #{node['sensu_centos']['rabbitmqctl_vhost']} #{node['sensu_centos']['rabbitmqctl_user']} \".*\" \".*\" \".*\""
 end
