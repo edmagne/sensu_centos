@@ -7,9 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-rpm_package "httpd" do
-  action :install
-end
+package "httpd"
 
 service "httpd" do
   action [ :enable, :start ]
