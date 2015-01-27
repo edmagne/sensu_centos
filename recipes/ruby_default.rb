@@ -7,61 +7,21 @@
 # All rights reserved - Do Not Redistribute
 #
 
-execute "yum-update" do
-  command "yum update -y"
-end
+execute "yum update -y"
+execute "yum -y groupinstall \"Development Tools\""
 
-execute "yum-install-devel-tools" do
-  command "yum -y groupinstall \"Development Tools\""
-end
-
-rpm_package "wget" do
-  action :install
-end
-
-rpm_package "tar" do
-  action :install
-end
-
-rpm_package "gcc-c++" do
-  action :install
-end
-
-rpm_package "patch" do
-  action :install
-end
-
-rpm_package "readline" do
-  action :install
-end
-
-rpm_package "readline-devel" do
-  action :install
-end
-
-rpm_package "zlib" do
-  action :install
-end
-
-rpm_package "zlib-devel" do
-  action :install
-end
-
-rpm_package "libff" do
-  action :install
-end
-
-rpm_package "libyaml" do
-  action :install
-end
-
-rpm_package "libyaml-devel" do
-  action :install
-end
-
-rpm_package "openssl-devel" do
-  action :install
-end
+package "wget"
+package "tar"
+package "gcc-c++"
+package "patch"
+package "readline"
+package "readline-devel"
+package "zlib"
+package "zlib-devel"
+package "libff"
+package "libyaml"
+package "libyaml-devel"
+package "openssl-devel"
 
 bash "install_ruby" do
   user "root"
@@ -83,14 +43,7 @@ bash "install_rubygems" do
   EOH
 end
 
-execute "gem-update" do
-  command "gem update --system"
-end
+execute "gem update --system"
 
-gem_package 'sensu-plugin' do
-  action :install
-end
-
-gem_package 'aws-ses' do
-  action :install
-end
+gem_package 'sensu-plugin'
+gem_package 'aws-ses'
