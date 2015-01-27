@@ -7,14 +7,16 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "tar-cookbook"
-
 execute "yum-update" do
   command "yum update -y"
 end
 
 execute "yum-install-devel-tools" do
   command "yum -y groupinstall \"Development Tools\""
+end
+
+rpm_package "wget" do
+  action :install
 end
 
 rpm_package "tar" do
@@ -61,39 +63,23 @@ rpm_package "openssl-devel" do
   action :install
 end
 
-directory '/root/ruby-install/' do
-  owner "root" 
-  group "root"
-  mode 00755
-  action :create
-end
-
-tar_extract "http://ftp.ruby-lang.org/pub/ruby/1.9/#{node['sensu_centos']['version_ruby']}" do
-  target_dir '/root/ruby-install/'
-end
-
 bash "install_ruby" do
   user "root"
+  cwd "/root"
   code <<-EOH
-    (cd /root/ruby-install/ && ./configure && make && make install)
+    wget http://ftp.ruby-lang.org/pub/ruby/1.9/#{node['sensu_centos']['version_ruby']}.tar.gz
+    tar xvzf #{node['sensu_centos']['version_ruby']}.tar.gz
+    (cd #{node['sensu_centos']['version_ruby']} && ./configure && make && make install)
   EOH
-end
-
-directory '/root/rubygems-install/' do
-  owner "root" 
-  group "root"
-  mode 00755
-  action :create
-end
-
-tar_extract "http://production.cf.rubygems.org/rubygems/#{node['sensu_centos']['version_rubygems']}" do
-  target_dir '/root/rubygems-install/'
 end
 
 bash "install_rubygems" do
   user "root"
+  cwd "/root"
   code <<-EOH
-    (cd /root/rubygems-install/ && ruby setup.rb)
+    wget http://production.cf.rubygems.org/rubygems/#{node['sensu_centos']['version_rubygems']}.tgz
+    tar xvzf #{node['sensu_centos']['version_rubygems']}.tgz
+    (cd #{node['sensu_centos']['version_rubygems']} && ruby setup.rb)
   EOH
 end
 
