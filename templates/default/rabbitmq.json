@@ -1,0 +1,13 @@
+{
+  "rabbitmq": {
+    "ssl": {
+      "cert_chain_file": "/etc/sensu/ssl/client_cert.pem",
+      "private_key_file": "/etc/sensu/ssl/client_key.pem"
+    },
+    "host": "localhost",
+    "port": 5671,
+    "vhost": "node['sensu_centos']['rabbitmqctl_vhost']",
+    "user": "node['sensu_centos']['rabbitmqctl_user']",
+    "password": "node['sensu_centos']['rabbitmqctl_pass']"
+  }
+}
