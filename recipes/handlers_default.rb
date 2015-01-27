@@ -7,10 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-rpm_package "wget" do
-  action :install
-end
-
 execute "wget-handler-mailer-ses" do
   command "wget -O /etc/sensu/handlers/mailer-ses.rb https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/handlers/notification/mailer-ses.rb"
 end
