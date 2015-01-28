@@ -11,16 +11,15 @@ execute "wget-handler-mailer-ses" do
   command "wget -O /etc/sensu/handlers/mailer-ses.rb https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/handlers/notification/mailer-ses.rb"
 end
 
-execute "wget-conf-mailer-ses" do
-  command "wget -O /etc/sensu/conf.d/mailer-ses.json https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/handlers/notification/mailer-ses.json"
-end
-
 file '/etc/sensu/handlers/mailer-ses.rb' do
   mode "0755"
 end
 
-file '/etc/sensu/conf.d/mailer-ses.json' do
-  mode "0755"
+cookbook_file '/etc/sensu/conf.d/mailer-ses.json' do
+  source 'mailer-ses.json'
+  owner "root"
+  group "root"
+  mode 00755
 end
 
 service "sensu-server" do
