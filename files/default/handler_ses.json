@@ -1,0 +1,15 @@
+{
+    "handlers": {
+        "mailer-ses": {
+            "type": "pipe",
+            "command": "/etc/sensu/handlers/mailer-ses.rb",
+            "severities": [
+              "ok",
+              "warning",
+              "critical"
+            ],
+            "mail_from": "",
+            "mail_to": ""
+        }
+    }
+}
