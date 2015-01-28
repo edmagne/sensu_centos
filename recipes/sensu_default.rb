@@ -87,6 +87,18 @@ cookbook_file '/etc/sensu/conf.d/client.json' do
   mode 00755
 end
 
+execute "ruby-embedded" do
+  command "echo \"EMBEDDED_RUBY=true\" > /etc/default/sensu"
+end
+
+gem_package 'sensu-plugin' do
+  gem_binary '/opt/sensu/embedded/bin/gem'
+end
+
+gem_package 'aws-ses' do
+  gem_binary '/opt/sensu/embedded/bin/gem'
+end
+
 service "sensu-server" do
   action [ :start ]
 end
