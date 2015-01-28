@@ -15,6 +15,16 @@ execute "wget-conf-mailer-ses" do
   command "wget -O /etc/sensu/conf.d/mailer-ses.json https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/handlers/notification/mailer-ses.json"
 end
 
+machine_file '/etc/sensu/handlers/mailer-ses.rb' do
+  mode "0755"
+  action :nothing
+end
+
+machine_file '/etc/sensu/conf.d/mailer-ses.json' do
+  mode "0755"
+  action :nothing
+end
+
 service "sensu-server" do
   action [ :restart ]
 end
