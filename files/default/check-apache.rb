@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/local/bin/ruby
 
 procs = `ps aux`
 running = false

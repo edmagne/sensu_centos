@@ -9,6 +9,11 @@
 
 execute "epel-update" do
   command "rpm -Uvh http://dl.fedoraproject.org/pub/epel/#{node['sensu_centos']['version_epel']}/#{node['sensu_centos']['arq_epel']}/#{node['sensu_centos']['release_epel']}"
+  ignore_failure true
+end
+
+execute "epel-update" do
+  command "rpm -Uvh http://dl.fedoraproject.org/pub/epel/#{node['sensu_centos']['version_epel']}/#{node['sensu_centos']['arq_epel']}/#{node['sensu_centos']['release_epel']}"
 end
 
 package "git"
